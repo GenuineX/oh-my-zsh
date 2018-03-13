@@ -73,6 +73,12 @@ main() {
     mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh;
   fi
 
+  printf "${BLUE}Looking for an existing bash_profile config...${NORMAL}\n"
+  if [ ! -f ~/.bash_profile ] && [ ! -h ~/.bash_profile ]; then
+    printf "${YELLOW}DO NOT Found ~/.bash_profile. Touch it!${NORMAL}\n";
+    touch ~/.bash_profile
+  fi
+
   printf "${BLUE}Using the Oh My Zsh template file and adding it to ~/.zshrc${NORMAL}\n"
   cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
   sed "/^export ZSH=/ c\\
