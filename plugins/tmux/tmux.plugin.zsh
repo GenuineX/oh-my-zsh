@@ -46,6 +46,7 @@ fi
 
 # Set the correct local config file to use.
 if [[ "$ZSH_TMUX_ITERM2" == "false" && -e "$ZSH_TMUX_CONFIG" ]]; then
+  export ZSH_TMUX_CONFIG
   export _ZSH_TMUX_FIXED_CONFIG="${0:h:a}/tmux.extra.conf"
 else
   export _ZSH_TMUX_FIXED_CONFIG="${0:h:a}/tmux.only.conf"
@@ -67,9 +68,12 @@ function _zsh_tmux_plugin_run() {
 
   # If failed, just run tmux, fixing the TERM variable if requested.
   if [[ $? -ne 0 ]]; then
-    [[ "$ZSH_TMUX_FIXTERM" == "true" ]] && tmux_cmd+=(-f "$_ZSH_TMUX_FIXED_CONFIG") || \
-    [[ -e "$ZSH_TMUX_CONFIG" ]] && tmux_cmd+=(-f "$ZSH_TMUX_CONFIG")
-    $tmux_cmd new-session  
+    if [[ "$ZSH_TMUX_FIXTERM" == "true" ]]; then
+      tmux_cmd+=(-f "$_ZSH_TMUX_FIXED_CONFIG")
+    elif [[ -e "$ZSH_TMUX_CONFIG" ]]; then
+      tmux_cmd+=(-f "$ZSH_TMUX_CONFIG")
+    fi
+    $tmux_cmd new-session
   fi
 
   if [[ "$ZSH_TMUX_AUTOQUIT" == "true" ]]; then
