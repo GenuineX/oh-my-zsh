@@ -49,9 +49,8 @@ that by downloading the install script first, looking through it so everything l
 then running it:
 
 ```shell
-curl -Lo install.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+curl -Lo install.sh https://raw.githubusercontent.com/Genuinex/oh-my-zsh/master/tools/install.sh
 sh install.sh
->>>>>>> 52fdae4b3d17f7ab602124ec8792865b5fc03236
 ```
 
 ## Using Oh My Zsh
